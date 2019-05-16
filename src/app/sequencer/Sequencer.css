@@ -1,0 +1,51 @@
+.sequencer__grid,
+.sequencer__grid-container {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.sequencer__cursor {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: -4px;
+    left: 0;
+    width: 30px;
+    height: calc(100% + 2px);
+    z-index: 0;
+}
+
+.sequencer__grid-cell {
+    display: inline-block;
+    background: seashell;
+    outline: 1px solid purple;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.sequencer__grid-cell.active:before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    background: purple
+}
+
+.remove__grid-cell {
+    vertical-align: top;
+    height: 30px;
+    margin: 0 0 0 20px;
+    padding: 0 20px;
+    line-height: 30px;
+}
+
+.sequencer__button {
+    float: right;
+}
+
+.sequencer__button:first-of-type {
+    margin-left: 10px;
+}
