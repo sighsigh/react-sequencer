@@ -1,51 +1,69 @@
-.sequencer__grid,
-.sequencer__grid-container {
+.cmp-grid {
     margin: 0;
     position: relative;
     z-index: 1;
 }
 
-.sequencer__cursor {
+.cmp-grid .index {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
-    top: -4px;
-    left: 0;
-    width: 30px;
-    height: calc(100% + 2px);
-    z-index: 0;
+    left: -35px;
+    /* border-radius: 50%;
+    border: 1px solid #333; */
+    line-height: 21px;
+    font-weight: 700;
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
 }
 
-.sequencer__grid-cell {
+.cmp-grid__controls {
+    text-align: right;
+}
+
+.cmp-grid__controls button:first-of-type {
+    margin-right: 10px;
+}
+
+.cmp-grid__cell {
     display: inline-block;
-    background: seashell;
-    outline: 1px solid purple;
+    background-color: #fff;
+    outline: 1px solid #333;
     position: relative;
     width: 30px;
     height: 30px;
 }
 
-.sequencer__grid-cell.active:before {
+.cmp-grid__cell.active:before {
     content: '';
     position: absolute;
     width: 60%;
     height: 60%;
     top: 20%;
     left: 20%;
-    background: purple
+    background: #333;
 }
 
-.remove__grid-cell {
+.cmp-grid__cell--remove {
     vertical-align: top;
     height: 30px;
     margin: 0 0 0 20px;
-    padding: 0 20px;
-    line-height: 30px;
+    padding: 0 10px;
+    font-size: 15px;
+    line-height: 28px;
 }
 
-.sequencer__button {
-    float: right;
+.cmp-matrix {
+    position: relative;
+    margin-left: 35px;
 }
-
-.sequencer__button:first-of-type {
-    margin-left: 10px;
+.cmp-matrix__cursor {
+    position: absolute;
+    background-color: #333;
+    top: -4px;
+    left: 0;
+    width: 30px;
+    height: calc(100% + 5px);
+    z-index: 0;
 }

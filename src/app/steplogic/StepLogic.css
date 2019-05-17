@@ -1,0 +1,25 @@
+.cmp-steplogic__steps {
+    margin-top: 20px;
+}
+
+.cmp-steplogic__steps span {
+    display: inline-block;
+    height: 30px;
+    border: solid #000;
+    border-width: 1px 0;
+    vertical-align: top;
+    padding: 0 12px;
+    line-height: 28px;
+    min-width: 45px;
+    text-align: center;
+}
+
+.cmp-steplogic__controls button {
+    margin-right: 5px;
+}
+
+.cmp-steplogic__count {
+    float: right;
+    height: 30px;
+    line-height: 28px;
+}

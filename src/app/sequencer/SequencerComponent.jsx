@@ -43,32 +43,27 @@ class SequencerComponent extends Component {
     render() {
         return (
             <Fragment>
-                <div className="cmp-block twelve columns">
+                <div className="cmp-block cmp-grid twelve columns">
+                    <h6>GRID</h6>
 
-                    <div className="row">
-                        <div className="six columns">
-                            <h6>GRID</h6>
-                        </div>
-                        <div className="six columns">
-                            <button className="sequencer__button" 
-                                onClick={() => this.props.clearMatrix()}>
-                                CLEAR ALL
-                            </button>
+                    <div className="cmp-grid__controls">
+                        <button
+                            onClick={() => this.addTrackToGrid()}>
+                            + ADD TRACK
+                        </button>
 
-                            <button className="sequencer__button" 
-                                onClick={() => this.addTrackToGrid()}>
-                                + Add track
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => this.props.clearMatrix()}>
+                            CLEAR ALL
+                        </button>
                     </div>  
-
-                    <hr />
 
                     <Matrix {...this.props} />
 
                 </div>
 
                 {this.props.children}
+                
             </Fragment>
         )
     }

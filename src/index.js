@@ -18,10 +18,6 @@ const store = createStore(rootReducer, middleware);
 // Main Render
 ReactDOM.render(
     <Provider store={store}>
-        <div className="container">
-            <div className="row">
-                <App />
-            </div>
-        </div>
+        <App />
     </Provider>,
     document.getElementById('root'));

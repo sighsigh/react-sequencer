@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import './StepLogic.css';
+
 class StepLogicComponent extends Component {
     constructor(props) {
         super(props);
@@ -9,9 +11,13 @@ class StepLogicComponent extends Component {
         this.play = this.play.bind(this);
         this.stop = this.stop.bind(this);
         this.reset = this.reset.bind(this);
-        this.editSteps = this.editSteps.bind(this);
         this.convertBpmToMs = this.convertBpmToMs.bind(this);
         this.onChangeTempo = this.onChangeTempo.bind(this);
+
+        this.steps = {
+            min: 2,
+            max: 16
+        }
 
         this.state = {
             isPlaying: false
@@ -49,8 +55,16 @@ class StepLogicComponent extends Component {
         this.props.resetSequence();
     }
 
-    editSteps(e) {
-        return this.props.changeSteps(e.target.value);
+    onIncrementSteps(delta) {
+        const { steps, changeSteps } = this.props;
+        const resultSteps = steps + delta > this.steps.max ? steps : steps + delta
+        return changeSteps(resultSteps);
+    }
+
+    onDecrementSteps(delta) {
+        const { steps, changeSteps } = this.props;
+        const resultSteps = steps - delta < this.steps.min ? steps : steps - delta
+        return changeSteps(resultSteps);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,28 +74,30 @@ class StepLogicComponent extends Component {
         this.onChangeTempo();
     }
 
-    componentDidMount() {
-        // it's invoked immediately after a component is mounted (inserted into the tree). 
-        // Initialization that requires DOM nodes should go here. 
-        // If you need to load data from a remote endpoint, this is a good place to instantiate the network request.       
-    }
-
     render() {
         const { currentStep, steps } = this.props;
 
         return (
             <Fragment>
-                <div className="cmp-block six columns">
+                <div className="cmp-block cmp-steplogic columns four">
                     <h6>SEQUENCE CONTROLS</h6>
 
-                    <button className="fa fa-play" onClick={this.play}></button>
-                    <button className="fa fa-stop" onClick={this.stop}></button>
-                    <button className="fa fa-times" onClick={this.reset}></button>
+                    <div className="cmp-steplogic__controls">
+                        <button onClick={this.play}><i className="fa fa-play"></i></button>
+                        <button onClick={this.stop}><i className="fa fa-stop"></i></button>
+                        <button onClick={this.reset}><i className="fa fa-times"></i></button>
 
-                    <div className="sequencer__steps">
-                        <strong>Step:</strong> {`${currentStep + 1} / ${steps}`}
-                        <br />
-                        <strong>Step quantity:</strong> <input type="number" max="16" value={steps} onChange={this.editSteps} />
+                        <div className="cmp-steplogic__count">
+                            <strong>{`${currentStep + 1} / ${steps}`}</strong> 
+                        </div>
+                        
+
+                   </div>
+
+                    <div className="cmp-steplogic__steps">
+                        <button onClick={() => this.onDecrementSteps(1)}><i className="fa fa-chevron-left"></i></button>
+                        <span>{steps}</span>
+                        <button onClick={() => this.onIncrementSteps(1)}><i className="fa fa-chevron-right"></i></button>
                     </div>
                 </div>
 

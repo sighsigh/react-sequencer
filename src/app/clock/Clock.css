@@ -1,0 +1,9 @@
+.cmp-clock__controls span {
+    display: inline-block;
+    height: 30px;
+    border: solid #000;
+    border-width: 1px 0;
+    vertical-align: top;
+    padding: 0 12px;
+    line-height: 28px;
+}
