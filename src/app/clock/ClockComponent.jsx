@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 
 import './Clock.css';
 
-class ClockComponent extends Component {
+class ClockComponent extends PureComponent {
 
     render() {
         const delta = 10;

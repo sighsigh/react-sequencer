@@ -1,31 +1,34 @@
 import { connect } from 'react-redux';
 import StepLogicComponent from './StepLogicComponent';
-import { StepLogicOperations } from './duck';
+import { 
+    StepLogicSelectors as selectors, 
+    StepLogicOperations as operations } from './duck';
 
 const mapStateToProps = (state, ownProps) => {
-    const { bpm } = state.clock;
     const { isPlaying, currentStep, steps } = state.steplogic;
     return {
-        bpm,
         isPlaying,
         currentStep,
-        steps
+        steps,
+        tempoInMs: selectors.getTempoInMs(state)
     }
 };
 
 const mapDispatchToProps = dispatch => {
-    const playSequence = () => dispatch(StepLogicOperations.playSequence());
-    const stepSequence = () => dispatch(StepLogicOperations.stepSequence());
-    const stopSequence = () => dispatch(StepLogicOperations.stopSequence());
-    const resetSequence = () => dispatch(StepLogicOperations.resetSequence());
-    const changeSteps = (newVal) => dispatch(StepLogicOperations.changeSteps(newVal));
+    const playSequence = () => dispatch(operations.playSequence());
+    const stepSequence = () => dispatch(operations.stepSequence());
+    const stopSequence = () => dispatch(operations.stopSequence());
+    const resetSequence = () => dispatch(operations.resetSequence());
+    const changeSteps = newVal => dispatch(operations.changeSteps(newVal));
+    const changeCurrentStep = newVal => dispatch(operations.changeCurrentStep(newVal));
 
     return {
         playSequence,
         stepSequence,
         stopSequence,
         resetSequence,
-        changeSteps
+        changeSteps,
+        changeCurrentStep
     }
 };
 

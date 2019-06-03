@@ -1,6 +1,5 @@
 import types from './types';
 
-// private
 const initialState = {
     isPlaying: false,
     currentStep: 0,
@@ -16,6 +15,7 @@ const stepLogicReducer = (state = initialState, action) => {
                 isPlaying: true
             };
             break;
+            
         case types.STEP_SEQUENCE:
             state = {
                 ...state,
@@ -28,6 +28,7 @@ const stepLogicReducer = (state = initialState, action) => {
                 isPlaying: false
             }
             break;
+
         case types.RESET_SEQUENCE:
             state = {
                 ...state,
@@ -40,6 +41,13 @@ const stepLogicReducer = (state = initialState, action) => {
             state = {
                 ...state,
                 steps: action.payload
+            }
+            break;
+        
+        case types.CHANGE_CURRENT_STEP:
+            state = {
+                ...state,
+                currentStep: action.payload
             }
             break;
 

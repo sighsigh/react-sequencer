@@ -29,12 +29,20 @@ const changeSteps = (newVal) => {
         type: types.CHANGE_STEPS,
         payload: parseInt(newVal)
     }
-}
+};
+
+const changeCurrentStep = newVal => {
+    return {
+        type: types.CHANGE_CURRENT_STEP,
+        payload: parseInt(newVal)
+    }
+};
 
 export default {
     playSequence,
     stepSequence,
     stopSequence,
     resetSequence,
-    changeSteps
+    changeSteps,
+    changeCurrentStep
 }

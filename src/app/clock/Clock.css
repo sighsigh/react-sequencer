@@ -1,4 +1,5 @@
 .cmp-clock__controls span {
+    background-color: #fff;
     display: inline-block;
     height: 30px;
     border: solid #000;

@@ -11,42 +11,38 @@ class StepLogicComponent extends Component {
         this.play = this.play.bind(this);
         this.stop = this.stop.bind(this);
         this.reset = this.reset.bind(this);
-        this.convertBpmToMs = this.convertBpmToMs.bind(this);
+        this.setTick = this.setTick.bind(this);
         this.onChangeTempo = this.onChangeTempo.bind(this);
 
-        this.steps = {
-            min: 2,
-            max: 16
+        this.settings = {
+            steps: {
+                min: 2,
+                max: 16
+            }
         }
 
-        this.state = {
-            isPlaying: false
-        }
-    }
-
-    convertBpmToMs(bpm) {
-        return 60000 / bpm;
     }
 
     onChangeTempo() {
-        const itWasPlaying = this.state.isPlaying;
-
-        this.stop();
-        if (itWasPlaying) this.play();
+        if (this.props.isPlaying) {
+            this.stop();
+            this.play();
+        };
     }
 
     play() {
-        const { bpm, playSequence, stepSequence } = this.props;
-        const interval = this.convertBpmToMs(bpm);
+        this.setTick();
+        this.props.playSequence();
+    }
 
-        this.timerId = setInterval(stepSequence, interval);
-        this.setState({ isPlaying: true });
-        playSequence();
+    setTick() {
+        const { stepSequence, tempoInMs } = this.props;
+        clearInterval(this.timerId);
+        this.timerId = setInterval(stepSequence, tempoInMs);
     }
 
     stop() {
         clearInterval(this.timerId);
-        this.setState({ isPlaying: false });
         this.props.stopSequence();
     }
 
@@ -57,20 +53,23 @@ class StepLogicComponent extends Component {
 
     onIncrementSteps(delta) {
         const { steps, changeSteps } = this.props;
-        const resultSteps = steps + delta > this.steps.max ? steps : steps + delta
+        const resultSteps = steps + delta > this.settings.steps.max ? steps : steps + delta
         return changeSteps(resultSteps);
     }
 
     onDecrementSteps(delta) {
-        const { steps, changeSteps } = this.props;
-        const resultSteps = steps - delta < this.steps.min ? steps : steps - delta
-        return changeSteps(resultSteps);
+        const { steps, currentStep, changeSteps, changeCurrentStep } = this.props;
+        const resultSteps = steps - delta < this.settings.steps.min ? steps : steps - delta;
+        if ((currentStep + 1) === steps) {
+            changeCurrentStep(currentStep - 1);
+        }
+        changeSteps(resultSteps);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { bpm } = this.props;
+        const { tempoInMs } = this.props;
 
-        if (prevProps.bpm === bpm) return;
+        if (prevProps.tempoInMs === tempoInMs) return;
         this.onChangeTempo();
     }
 
@@ -84,14 +83,12 @@ class StepLogicComponent extends Component {
 
                     <div className="cmp-steplogic__controls">
                         <button onClick={this.play}><i className="fa fa-play"></i></button>
-                        <button onClick={this.stop}><i className="fa fa-stop"></i></button>
-                        <button onClick={this.reset}><i className="fa fa-times"></i></button>
+                        <button onClick={this.stop}><i className="fa fa-pause"></i></button>
+                        <button onClick={this.reset}><i className="fa fa-stop"></i></button>
 
                         <div className="cmp-steplogic__count">
                             <strong>{`${currentStep + 1} / ${steps}`}</strong> 
                         </div>
-                        
-
                    </div>
 
                     <div className="cmp-steplogic__steps">
