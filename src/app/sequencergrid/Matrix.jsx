@@ -12,19 +12,24 @@ class Matrix extends Component {
 
         return (
             matrix.map((track, i) => {
-                const trackInx = i;
+                const trackIndex = i;
                 return (
                     /* Track */
                     <div className="cmp-grid" key={`track-${i}`}>
                         <div className="index">{i + 1}</div>
 
-                        { track.map((slot, j) => {
+                        { track.map((slotVal, j) => {
+                            const slotIndex = j;
                             return (
                                 /* Cell */
                                 <span 
                                     key={`cell-${track[i]}-${j}`} 
-                                    className={`cmp-grid__cell ${slot ? "active" : ""}`}
-                                    onClick={() => updateTrack({trackIndex: i, slotIndex: j, value: !slot})} />
+                                    className={`cmp-grid__cell ${slotVal ? "active" : ""}`}
+                                    onClick={() => updateTrack({
+                                        trackIndex, 
+                                        slotIndex, 
+                                        value: !slotVal
+                                    })} />
                             )
                         }) }
 
@@ -32,7 +37,7 @@ class Matrix extends Component {
                         { matrix.length > 1
                                 ? <button 
                                         className="cmp-grid__cell--remove"
-                                        onClick={() => deleteTrack(trackInx)}><i className="fa fa-trash"></i></button>
+                                        onClick={() => deleteTrack(trackIndex)}><i className="fa fa-trash"></i></button>
                                 : ''
                         }
                     </div>

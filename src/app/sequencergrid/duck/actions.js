@@ -42,10 +42,17 @@ const clearMatrix = () => {
   }
 };
 
+const randomFillMatrix = () => {
+  return {
+    type: types.RANDOM_FILL_MATRIX
+  }
+};
+
 export default {
     addTrack,
     updateTrack,
     deleteTrack,
     updateMatrixLength,
-    clearMatrix
+    clearMatrix,
+    randomFillMatrix
   }

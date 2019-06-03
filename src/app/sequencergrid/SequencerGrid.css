@@ -20,15 +20,20 @@
 
 .cmp-grid__controls {
     text-align: right;
+    margin-bottom: 20px;
 }
 
-.cmp-grid__controls button:first-of-type {
+.cmp-grid__controls button {
     margin-right: 10px;
+}
+
+.cmp-grid__controls button:last-of-type {
+    margin-right: 0;
 }
 
 .cmp-grid__cell {
     display: inline-block;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     outline: 1px solid #333;
     position: relative;
     width: 30px;

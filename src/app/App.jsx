@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Clock }  from './clock';
-import { Sequencer }  from './sequencer';
+import { SequencerGrid }  from './sequencergrid';
 import { StepLogic }  from './steplogic';
 import { UserManager }  from './user';
 
@@ -13,10 +13,10 @@ class App extends Component {
       <div className="App cmp-container">
         <Clock>
           <StepLogic>
-            <Sequencer>
+            <SequencerGrid>
               {/* <ChannelFunnel /> */}
               <UserManager />
-            </Sequencer>
+            </SequencerGrid>
           </StepLogic>         
         </Clock>
       </div>

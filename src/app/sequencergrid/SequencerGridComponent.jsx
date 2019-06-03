@@ -2,31 +2,9 @@ import React, { Component, Fragment } from 'react';
 
 import Matrix from './Matrix';
 
-import './Sequencer.css';
+import './SequencerGrid.css';
 
 class SequencerComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.createMatrix = this.createMatrix.bind(this);
-        this.addTrackToGrid = this.addTrackToGrid.bind(this);
-    }
-
-    createMatrix(rows, cols) {
-        const matrix = [];
-
-        for (let i=0; i<rows; i++) {
-            matrix.push(new Array(cols).fill(0))
-        }
-
-        this.setState({
-            matrix
-        })
-    }
-
-    addTrackToGrid() {
-        const { steps, addTrack } = this.props;
-        addTrack(steps);
-    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { steps, updateMatrixLength } = this.props;
@@ -41,6 +19,8 @@ class SequencerComponent extends Component {
     }
 
     render() {
+        const { steps, addTrack } = this.props;
+
         return (
             <Fragment>
                 <div className="cmp-block cmp-grid twelve columns">
@@ -48,13 +28,18 @@ class SequencerComponent extends Component {
 
                     <div className="cmp-grid__controls">
                         <button
-                            onClick={() => this.addTrackToGrid()}>
+                            onClick={() => addTrack(steps)}>
                             + ADD TRACK
                         </button>
 
                         <button
                             onClick={() => this.props.clearMatrix()}>
                             CLEAR ALL
+                        </button>
+
+                        <button
+                            onClick={() => this.props.randomFillMatrix()}>
+                            RANDOMIZE
                         </button>
                     </div>  
 

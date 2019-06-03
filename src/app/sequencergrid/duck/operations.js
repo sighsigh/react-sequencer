@@ -8,6 +8,7 @@ const updateTrack = actionCreators.updateTrack;
 const deleteTrack = actionCreators.deleteTrack;
 const updateMatrixLength = actionCreators.updateMatrixLength;
 const clearMatrix = actionCreators.clearMatrix;
+const randomFillMatrix = actionCreators.randomFillMatrix;
 
 export default {
     incrementTempo,
@@ -17,5 +18,6 @@ export default {
     updateTrack,
     deleteTrack,
     updateMatrixLength,
-    clearMatrix
+    clearMatrix,
+    randomFillMatrix
 }

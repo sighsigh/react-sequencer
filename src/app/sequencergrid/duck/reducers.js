@@ -1,15 +1,24 @@
 import types from './types';
 
 // private
-const createTrack = (steps) => new Array(steps).fill(0);
-const createRandomSequence = (range) => {
-    let sequence = [];
+const createTrack = steps => new Array(steps).fill(0);
+const createRandomSequence = range => {
+    const sequence = [];
     for (var i = 0; i < range; i++) {
         const val = Math.floor(Math.random() * 2);
         sequence.push(val);
     }
     return sequence;
 }
+
+const getRandomlyFilledMatrix = matrix => {
+    const seqLength = matrix[0].length;
+    const newMatrix = [];
+    matrix.forEach(seq => {
+        newMatrix.push(createRandomSequence(seqLength));
+    });
+    return newMatrix;
+};
 
 const getUpdatedMatrix = (matrix, newLength) => {
     const newMatrix = [];
@@ -40,8 +49,7 @@ const getClearMatrix = (matrix) => {
 };
 
 const initialState = {
-    matrix: [[/* array of arrays */]],
-    tracksNum: 1
+    matrix: [[/* array of arrays */]]
 };
 
 // public
@@ -91,6 +99,14 @@ const SequencerTracksReducer = (state = initialState, action) => {
                 matrix: _matrix
             }
             break;
+
+        case types.RANDOM_FILL_MATRIX:
+                _matrix = getRandomlyFilledMatrix(_matrix);
+                state = {
+                    ...state,
+                    matrix: _matrix
+                }
+                break;
 
         default:
             return state;

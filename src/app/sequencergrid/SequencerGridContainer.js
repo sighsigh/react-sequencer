@@ -1,18 +1,14 @@
 import { connect } from 'react-redux';
-import SequencerComponent from './SequencerComponent';
+import SequencerComponent from './SequencerGridComponent';
 import { sequencerOperations } from './duck';
-
-// private
-
 
 // public
 const mapStateToProps = (state, ownProps) => {
-    const { matrix, tracksNum } = state.sequencer;
+    const { matrix } = state.sequencer_grid;
     const { steps, currentStep } = state.steplogic;
 
     return {
         matrix,
-        tracksNum,
         steps,
         currentStep
     };
@@ -24,13 +20,15 @@ const mapDispatchToProps = dispatch => {
     const deleteTrack = (trackIndex) => dispatch(sequencerOperations.deleteTrack(trackIndex));
     const updateMatrixLength = (coords) => dispatch(sequencerOperations.updateMatrixLength(coords));
     const clearMatrix = () => dispatch(sequencerOperations.clearMatrix());
+    const randomFillMatrix = () => dispatch(sequencerOperations.randomFillMatrix());
 
     return {
         addTrack,
         updateTrack,
         deleteTrack,
         updateMatrixLength,
-        clearMatrix
+        clearMatrix,
+        randomFillMatrix
     }
 };
 

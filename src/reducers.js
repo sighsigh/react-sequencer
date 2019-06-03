@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import ClockReducers from './app/clock/duck';
-import SequencerReducers from './app/sequencer/duck';
+import SequencerGridReducers from './app/sequencergrid/duck';
 import StepLogicReducers from './app/steplogic/duck';
 
 const rootReducer = combineReducers({
     clock: ClockReducers,
-    sequencer: SequencerReducers,
+    sequencer_grid: SequencerGridReducers,
     steplogic: StepLogicReducers
 });
 
