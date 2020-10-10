@@ -1,16 +1,13 @@
 import React from "react";
 
-import { useTempo } from "./context/Tempo";
-import { Clock } from "./components";
+import { Clock, SequenceControls } from "@components/index";
 
 const App: React.FC = () => {
-  const { tempo, setTempo } = useTempo()!;
   return (
-    <>
-      <div>Tempo is: {tempo}</div>
+    <div className="cmp-container">
       <Clock />
-      <button onClick={() => setTempo(140)}>SET TO 140bpm</button>
-    </>
+      <SequenceControls />
+    </div>
   );
 };
 

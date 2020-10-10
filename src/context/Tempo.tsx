@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 type TempoContextType = {
   tempo: number;
-  setTempo: (value: number) => void;
+  setTempo?: (value: number) => void;
 };
 
 export const TempoContext = createContext<TempoContextType | undefined>(
