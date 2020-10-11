@@ -1,0 +1,12 @@
+.cmp-grid__controls {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.cmp-grid__controls button {
+  margin-right: 10px;
+}
+
+.cmp-grid__controls button:last-of-type {
+  margin-right: 0;
+}
