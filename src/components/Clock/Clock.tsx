@@ -1,7 +1,8 @@
 import React from "react";
 import { useTempo } from "../../context/Tempo";
 
-import "./Clock.css";
+import CmpLayout from "@components/CmpLayout/CmpLayout";
+import { Button } from "semantic-ui-react";
 
 const Clock: React.FC = () => {
   const delta = 10;
@@ -16,14 +17,13 @@ const Clock: React.FC = () => {
   };
 
   return (
-    <div className="cmp-block cmp-clock columns four">
-      <h6>CLOCK</h6>
-      <div className="cmp-clock__controls">
-        <button onClick={decrement}>-</button>
-        <span>{tempo} BPM</span>
-        <button onClick={increment}>+</button>
-      </div>
-    </div>
+    <CmpLayout title="Clock">
+      <Button.Group>
+        <Button icon="minus" onClick={decrement} />
+        <Button content={`${tempo} BPM`} />
+        <Button icon="plus" onClick={increment} />
+      </Button.Group>
+    </CmpLayout>
   );
 };
 

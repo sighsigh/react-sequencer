@@ -4,6 +4,7 @@ import { GridControls } from "@components/index";
 import { useMatrix } from "@context/Matrix";
 import { useSteps } from "@context/Steps";
 import GridMatrix from "./GridMatrix";
+import CmpLayout from "@components/CmpLayout/CmpLayout";
 
 import "./Grid.css";
 
@@ -63,11 +64,10 @@ const Grid: React.FC = () => {
   }, [steps]);
 
   return (
-    <div className="cmp-block cmp-grid twelve columns">
-      <h6>GRID</h6>
+    <CmpLayout title="Grid">
       <GridControls />
       <GridMatrix />
-    </div>
+    </CmpLayout>
   );
 };
 

@@ -6,7 +6,7 @@ import { StepsProvider } from "@context/Steps";
 import { MatrixProvider } from "@context/Matrix";
 import { App } from "@components/index";
 
-import "./index.css";
+import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
   <TempoProvider default={120}>

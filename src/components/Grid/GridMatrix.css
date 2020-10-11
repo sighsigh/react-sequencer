@@ -5,16 +5,16 @@
   position: relative;
   width: 30px;
   height: 30px;
-}
 
-.cmp-grid__cell.active:before {
-  content: "";
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
-  background: #333;
+  &.active:before {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    background: #333;
+  }
 }
 
 .cmp-grid__cell--remove {
@@ -29,6 +29,7 @@
 .cmp-matrix {
   position: relative;
   margin-left: 35px;
+  clear: both;
 }
 .cmp-matrix__cursor {
   position: absolute;
