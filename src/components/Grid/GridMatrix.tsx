@@ -4,20 +4,6 @@ import { useMatrix } from "@context/Matrix";
 import "./GridMatrix.css";
 import { useSteps } from "@context/Steps";
 
-// const createRandomSequence = (range) => {
-//   const sequence = [];
-//   for (var i = 0; i < range; i++) {
-//     const val = Math.floor(Math.random() * 2);
-//     sequence.push(val);
-//   }
-//   return sequence;
-// };
-
-// const getRandomlyFilledMatrix = (matrix) => {
-//   const seqLength = matrix[0].length;
-//   return matrix.map((_) => createRandomSequence(seqLength));
-// };
-
 const GridMatrix: React.FC = () => {
   const { schema, setSchema } = useMatrix()!;
   const { currentStep } = useSteps()!;

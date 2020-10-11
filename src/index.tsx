@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { TempoProvider } from "@context/Tempo";
 import { StepsProvider } from "@context/Steps";
 import { MatrixProvider } from "@context/Matrix";
-import App from "./App";
+import { App } from "@components/index";
 
 import "./index.css";
 
