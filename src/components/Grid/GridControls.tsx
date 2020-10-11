@@ -1,7 +1,7 @@
 import React from "react";
 import { useMatrix } from "@context/Matrix";
 
-import "./GridControls.css";
+import { Button } from "semantic-ui-react";
 
 const createRandomSequence = (range: number): number[] => {
   const sequence = [];
@@ -29,10 +29,14 @@ const GridControls: React.FC = () => {
   const random = () => setSchema(randomFill(schema));
 
   return (
-    <div className="cmp-grid__controls">
-      <button onClick={add}>+ ADD TRACK</button>
-      <button onClick={clear}>CLEAR ALL</button>
-      <button onClick={random}>RANDOMIZE</button>
+    <div>
+      <Button.Group floated="left">
+        <Button icon="plus" content="ADD TRACK" onClick={add} />
+      </Button.Group>
+      <Button.Group basic floated="right">
+        <Button icon="times" content="CLEAR ALL" onClick={clear} />
+        <Button icon="question" content="RANDOMIZE" onClick={random} />
+      </Button.Group>
     </div>
   );
 };

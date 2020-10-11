@@ -4,7 +4,8 @@ import { useSteps } from "@context/Steps";
 import { useTempo } from "@context/Tempo";
 import useInterval from "@hooks/useInterval";
 
-import "./SequenceControls.css";
+import CmpLayout from "@components/CmpLayout/CmpLayout";
+import { Button } from "semantic-ui-react";
 
 const settings = {
   steps: {
@@ -70,35 +71,19 @@ const SequenceControls: React.FC = () => {
   );
 
   return (
-    <div className="cmp-block cmp-steplogic columns four">
-      <h6>SEQUENCE CONTROLS</h6>
+    <CmpLayout title="Sequence Controls">
+      <Button.Group floated="left">
+        <Button icon="play" onClick={play} />
+        <Button icon="pause" onClick={pause} />
+        <Button icon="stop" onClick={stop} />
+      </Button.Group>
 
-      <div className="cmp-steplogic__controls">
-        <button onClick={play}>
-          <i className="fa fa-play"></i>
-        </button>
-        <button onClick={pause}>
-          <i className="fa fa-pause"></i>
-        </button>
-        <button onClick={stop}>
-          <i className="fa fa-stop"></i>
-        </button>
-
-        <div className="cmp-steplogic__count">
-          <strong>{`${currentStep + 1} / ${steps}`}</strong>
-        </div>
-      </div>
-
-      <div className="cmp-steplogic__steps">
-        <button onClick={() => removeStep()}>
-          <i className="fa fa-minus"></i>
-        </button>
-        <span>{steps}</span>
-        <button onClick={() => addStep()}>
-          <i className="fa fa-plus"></i>
-        </button>
-      </div>
-    </div>
+      <Button.Group floated="right">
+        <Button icon="minus" onClick={() => removeStep()} />
+        <Button content={steps} />
+        <Button icon="plus" onClick={() => addStep()} />
+      </Button.Group>
+    </CmpLayout>
   );
 };
 
