@@ -5,12 +5,12 @@
 .cmp-steplogic__steps span {
     background-color: #fff;
     display: inline-block;
-    height: 30px;
+    height: 27px;
     border: solid #000;
     border-width: 1px 0;
     vertical-align: top;
     padding: 0 12px;
-    line-height: 28px;
+    line-height: 27px;
     min-width: 45px;
     text-align: center;
 }

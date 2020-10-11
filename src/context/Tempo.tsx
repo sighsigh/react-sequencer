@@ -2,18 +2,23 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 type TempoContextType = {
   tempo: number;
-  setTempo?: (value: number) => void;
+  setTempo: (value: number) => void;
 };
 
 export const TempoContext = createContext<TempoContextType | undefined>(
   undefined
 );
 
-export const TempoProvider: React.FC = (props) => {
+interface TempoProviderProps {
+  default: number;
+  children: React.ReactNode;
+}
+
+export const TempoProvider: React.FC<TempoProviderProps> = (props) => {
   const [tempo, setTempo] = useState(0);
 
   useEffect(() => {
-    setTempo(120); // TODO: use global settings
+    setTempo(props.default);
   }, []);
 
   return (

@@ -1,0 +1,17 @@
+.cmp-grid {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.cmp-grid .index {
+  position: absolute;
+  left: -35px;
+  line-height: 21px;
+  font-weight: 700;
+  width: 25px;
+  height: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}

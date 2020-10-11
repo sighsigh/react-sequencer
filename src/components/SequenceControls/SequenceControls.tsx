@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { StepsContext } from "@context/Steps";
-import { TempoContext } from "@context/Tempo";
+import { useSteps } from "@context/Steps";
+import { useTempo } from "@context/Tempo";
+import useInterval from "@hooks/useInterval";
 
 import "./SequenceControls.css";
 
@@ -15,49 +16,41 @@ const settings = {
 const getTempoInMs = (tempo: number): number => 60000 / tempo;
 
 const SequenceControls: React.FC = () => {
-  let timerId: any;
-  const { steps, currentStep, setCurrentStep, setSteps } = useContext(
-    StepsContext
-  )!;
-  const { tempo } = useContext(TempoContext)!;
+  const { steps, currentStep, setCurrentStep, setSteps } = useSteps()!;
+  const { tempo } = useTempo()!;
   const [tempoInMs, setTempoInMs] = useState(getTempoInMs(tempo));
   const [isPlaying, setIsPlaying] = useState(false);
 
   const onChangeTempo = () => {
     if (isPlaying) {
-      stop();
+      pause();
       play();
     }
   };
 
   const play = () => {
-    clearInterval(timerId);
-    timerId = setInterval(() => {
-      setCurrentStep(currentStep + 1);
-    }, tempoInMs);
     setIsPlaying(true);
   };
 
   const pause = () => {
-    clearInterval(timerId);
     setIsPlaying(false);
   };
 
   const stop = () => {
     pause();
-    setCurrentStep(1);
+    setCurrentStep(0);
   };
 
-  const addStep = (delta: number): void => {
+  const addStep = (delta: number = 1): void => {
     const resultSteps =
       steps + delta > settings.steps.max ? steps : steps + delta;
     setSteps(resultSteps);
   };
 
-  const removeStep = (delta: number): void => {
+  const removeStep = (delta: number = 1): void => {
     const resultSteps =
       steps - delta < settings.steps.min ? steps : steps - delta;
-    if (currentStep === steps) {
+    if (currentStep === steps - 1) {
       setCurrentStep(currentStep - 1);
     }
     setSteps(resultSteps);
@@ -67,6 +60,14 @@ const SequenceControls: React.FC = () => {
     onChangeTempo();
     setTempoInMs(getTempoInMs(tempo));
   }, [tempo]);
+
+  useInterval(
+    () => {
+      const nextStep = currentStep + 1;
+      setCurrentStep(nextStep > steps - 1 ? 0 : nextStep);
+    },
+    isPlaying ? tempoInMs : null
+  );
 
   return (
     <div className="cmp-block cmp-steplogic columns four">
@@ -89,9 +90,13 @@ const SequenceControls: React.FC = () => {
       </div>
 
       <div className="cmp-steplogic__steps">
-        <button onClick={() => removeStep(1)}>-</button>
+        <button onClick={() => removeStep()}>
+          <i className="fa fa-minus"></i>
+        </button>
         <span>{steps}</span>
-        <button onClick={() => addStep(1)}>+</button>
+        <button onClick={() => addStep()}>
+          <i className="fa fa-plus"></i>
+        </button>
       </div>
     </div>
   );

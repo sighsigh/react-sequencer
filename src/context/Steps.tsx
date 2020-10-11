@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type StepsContextType = {
   steps: number;
@@ -22,7 +22,6 @@ export const StepsProvider: React.FC<StepsProviderProps> = (props) => {
 
   useEffect(() => {
     setSteps(props.steps);
-    setCurrentStep(1);
   }, []);
 
   return (
@@ -33,3 +32,5 @@ export const StepsProvider: React.FC<StepsProviderProps> = (props) => {
     </StepsContext.Provider>
   );
 };
+
+export const useSteps = () => useContext(StepsContext);
