@@ -30,10 +30,8 @@ const GridControls: React.FC = () => {
 
   return (
     <div>
-      <Button.Group floated="left">
+      <Button.Group>
         <Button icon="plus" content="ADD TRACK" onClick={add} />
-      </Button.Group>
-      <Button.Group basic floated="right">
         <Button icon="times" content="CLEAR ALL" onClick={clear} />
         <Button icon="question" content="RANDOMIZE" onClick={random} />
       </Button.Group>

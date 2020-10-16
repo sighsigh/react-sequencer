@@ -1,8 +1,12 @@
+import { DefaultPropsInterface } from "@lib/defaults";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type TempoContextType = {
   tempo: number;
+  minTempo: number;
+  maxTempo: number;
   setTempo: (value: number) => void;
+  resetTempo: () => void;
 };
 
 export const TempoContext = createContext<TempoContextType | undefined>(
@@ -10,19 +14,28 @@ export const TempoContext = createContext<TempoContextType | undefined>(
 );
 
 interface TempoProviderProps {
-  default: number;
+  defaults: DefaultPropsInterface;
   children: React.ReactNode;
 }
 
 export const TempoProvider: React.FC<TempoProviderProps> = (props) => {
   const [tempo, setTempo] = useState(0);
+  const resetTempo = () => setTempo(props.defaults.base);
 
   useEffect(() => {
-    setTempo(props.default);
+    setTempo(props.defaults.base);
   }, []);
 
   return (
-    <TempoContext.Provider value={{ tempo, setTempo }}>
+    <TempoContext.Provider
+      value={{
+        tempo,
+        minTempo: props.defaults.min,
+        maxTempo: props.defaults.max,
+        setTempo,
+        resetTempo,
+      }}
+    >
       {props.children}
     </TempoContext.Provider>
   );

@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
+const { DefinePlugin } = require("webpack");
 
 module.exports = {
   entry: {
@@ -58,6 +60,7 @@ module.exports = {
       "@components": path.resolve(__dirname, "src/components/"),
       "@context": path.resolve(__dirname, "src/context/"),
       "@hooks": path.resolve(__dirname, "src/hooks/"),
+      "@lib": path.resolve(__dirname, "src/lib/"),
     },
   },
   output: {
@@ -67,6 +70,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
+    }),
+    new DefinePlugin({
+      "process.env": dotenv.parsed,
     }),
   ],
   devServer: {
