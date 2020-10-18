@@ -7,7 +7,7 @@ import useInterval from "@hooks/useInterval";
 import CmpLayout from "@components/CmpLayout/CmpLayout";
 import { Button } from "semantic-ui-react";
 
-const getTempoInMs = (tempo: number): number => 60000 / tempo;
+const getTempoInMs = (tempo: number): number => 60000 / tempo / 4;
 
 const SequenceControls: React.FC = () => {
   const {
@@ -60,8 +60,6 @@ const SequenceControls: React.FC = () => {
     onChangeTempo();
     setTempoInMs(getTempoInMs(tempo));
   }, [tempo]);
-
-  console.log(tempoInMs);
 
   useInterval(
     () => {

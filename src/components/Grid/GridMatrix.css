@@ -17,4 +17,8 @@
 .matrix-row__cells {
   margin-left: 2px;
   margin-right: 5px;
+
+  .last-quarter {
+    border-left: 1px solid #000 !important;
+  }
 }

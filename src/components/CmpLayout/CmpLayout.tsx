@@ -7,12 +7,12 @@ interface CmpLayoutProps {
   children: React.ReactNode;
 }
 
-const CmpLayout: React.FC<CmpLayoutProps> = (props) => (
+const CmpLayout: React.FC<CmpLayoutProps> = ({ title, children }) => (
   <Card color="grey" fluid>
     <Card.Content>
-      <Card.Header>{props.title}</Card.Header>
+      <Card.Header>{title}</Card.Header>
       <Divider />
-      <Card.Description>{props.children}</Card.Description>
+      <Card.Description>{children}</Card.Description>
     </Card.Content>
   </Card>
 );
