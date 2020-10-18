@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useMatrix } from "@context/Matrix";
 import { useSteps } from "@context/Steps";
 
 import { Button } from "semantic-ui-react";
-// import { SoundSelect } from "@components/index";
+import { SoundSelect } from "@components/index";
 
 import "./GridMatrix.css";
 
 const GridMatrix: React.FC = () => {
   const { schema, setSchema } = useMatrix()!;
   const { currentStep } = useSteps()!;
+  const [tick, setTick] = useState(0);
 
   const updateSchema = (x: number, y: number, value: number): void => {
     const _schema = [...schema];
@@ -24,15 +25,21 @@ const GridMatrix: React.FC = () => {
     setSchema(_schema);
   };
 
+  useEffect(() => {
+    if (currentStep != undefined) {
+      setTick(tick + 1);
+    }
+  }, [currentStep]);
+
   return (
     <div className="matrix">
       {schema.map((track, i) => {
         const trackIndex = i;
         return (
           <div className="matrix-row" key={`track-${i}`}>
-            {/* <div className="matrix-row__select">
-              <SoundSelect isPlaying={track[currentStep] === 1} />
-            </div> */}
+            <div className="matrix-row__select">
+              <SoundSelect tick={tick} isPlaying={track[currentStep] === 1} />
+            </div>
             <div className="matrix-row__cells">
               <Button.Group>
                 {track.map((slotVal, j) => {
@@ -40,6 +47,7 @@ const GridMatrix: React.FC = () => {
                   return (
                     <Button
                       key={`cell-${track[i]}-${j}`}
+                      className={j !== 0 && j % 4 === 0 ? "last-quarter" : ""}
                       icon={slotVal ? "circle" : "circle outline"}
                       basic
                       negative={currentStep === slotIndex}

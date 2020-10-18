@@ -15,29 +15,33 @@ const Grid: React.FC = () => {
   const { steps } = useSteps()!;
 
   useEffect(() => {
-    if (schema[0].length === 0) {
+    const rowLength = schema[0].length;
+    const columnsDiff = Math.abs(rowLength - columns);
+
+    if (rowLength === 0) {
       // on init scenario
       setSchema(schema.map((_) => createEmptyTrack(columns)));
       return;
     }
 
-    if (schema[0].length < columns) {
-      // add column
+    if (rowLength < columns) {
+      // add column(s)
       setSchema(
         schema.map((track) => {
-          track.push(0);
+          track.push(...new Array(columnsDiff).fill(0));
           return track;
         })
       );
       return;
     }
 
-    if (schema[0].length > columns) {
-      // remove column
+    if (rowLength > columns) {
+      // remove column(s)
       setSchema(
         schema.map((track) => {
-          track.pop();
-          return track;
+          const _track = [...track];
+          _track.splice(-columnsDiff);
+          return _track;
         })
       );
     }
