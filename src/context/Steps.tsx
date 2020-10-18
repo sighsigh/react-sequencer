@@ -1,10 +1,14 @@
+import { DefaultPropsInterface } from "@lib/defaults";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type StepsContextType = {
   steps: number;
+  maxSteps: number;
+  minSteps: number;
   currentStep: number;
   setSteps: (value: number) => void;
   setCurrentStep: (value: number) => void;
+  resetSteps: () => void;
 };
 
 export const StepsContext = createContext<StepsContextType | undefined>(
@@ -12,21 +16,30 @@ export const StepsContext = createContext<StepsContextType | undefined>(
 );
 
 interface StepsProviderProps {
-  steps: number;
+  defaults: DefaultPropsInterface;
   children: React.ReactNode;
 }
 
 export const StepsProvider: React.FC<StepsProviderProps> = (props) => {
   const [steps, setSteps] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+  const resetSteps = () => setSteps(props.defaults.base);
 
   useEffect(() => {
-    setSteps(props.steps);
+    setSteps(props.defaults.base);
   }, []);
 
   return (
     <StepsContext.Provider
-      value={{ steps, setSteps, currentStep, setCurrentStep }}
+      value={{
+        steps,
+        maxSteps: props.defaults.max,
+        minSteps: props.defaults.min,
+        setSteps,
+        currentStep,
+        setCurrentStep,
+        resetSteps,
+      }}
     >
       {props.children}
     </StepsContext.Provider>

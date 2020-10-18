@@ -11,6 +11,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "react": "^16.8.3",
     "react-dom": "^16.13.1",
     "semantic-ui-css": "^2.4.1",

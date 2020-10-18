@@ -1,8 +1,12 @@
-import * as React from "react";
+import React from "react";
+
 import { useMatrix } from "@context/Matrix";
+import { useSteps } from "@context/Steps";
+
+import { Button } from "semantic-ui-react";
+// import { SoundSelect } from "@components/index";
 
 import "./GridMatrix.css";
-import { useSteps } from "@context/Steps";
 
 const GridMatrix: React.FC = () => {
   const { schema, setSchema } = useMatrix()!;
@@ -21,46 +25,42 @@ const GridMatrix: React.FC = () => {
   };
 
   return (
-    <div className="cmp-matrix">
+    <div className="matrix">
       {schema.map((track, i) => {
         const trackIndex = i;
         return (
-          /* Track */
-          <div className="cmp-grid" key={`track-${i}`}>
-            <div className="index">{i + 1}</div>
+          <div className="matrix-row" key={`track-${i}`}>
+            {/* <div className="matrix-row__select">
+              <SoundSelect isPlaying={track[currentStep] === 1} />
+            </div> */}
+            <div className="matrix-row__cells">
+              <Button.Group>
+                {track.map((slotVal, j) => {
+                  const slotIndex = j;
+                  return (
+                    <Button
+                      key={`cell-${track[i]}-${j}`}
+                      icon={slotVal ? "circle" : "circle outline"}
+                      basic
+                      negative={currentStep === slotIndex}
+                      color="grey"
+                      onClick={() =>
+                        updateSchema(trackIndex, slotIndex, slotVal ? 0 : 1)
+                      }
+                    />
+                  );
+                })}
+              </Button.Group>
+            </div>
 
-            {track.map((slotVal, j) => {
-              const slotIndex = j;
-              return (
-                /* Cell */
-                <span
-                  key={`cell-${track[i]}-${j}`}
-                  className={`cmp-grid__cell ${slotVal ? "active" : ""}`}
-                  onClick={() =>
-                    updateSchema(trackIndex, slotIndex, slotVal ? 0 : 1)
-                  }
-                />
-              );
-            })}
-
-            {/* Delete Track */}
-            {schema.length > 1 ? (
-              <button
-                className="cmp-grid__cell--remove"
-                onClick={() => deleteTrack(trackIndex)}
-              >
-                <i className="fa fa-trash"></i>
-              </button>
-            ) : (
-              ""
+            {schema.length > 1 && (
+              <div className="matrix-row__delete">
+                <Button onClick={() => deleteTrack(trackIndex)} icon="trash" />
+              </div>
             )}
           </div>
         );
       })}
-      <div
-        className="cmp-matrix__cursor"
-        style={{ left: `${currentStep * 30}px` }}
-      />
     </div>
   );
 };

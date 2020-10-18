@@ -7,17 +7,18 @@ import useInterval from "@hooks/useInterval";
 import CmpLayout from "@components/CmpLayout/CmpLayout";
 import { Button } from "semantic-ui-react";
 
-const settings = {
-  steps: {
-    min: 2,
-    max: 16,
-  },
-};
-
 const getTempoInMs = (tempo: number): number => 60000 / tempo;
 
 const SequenceControls: React.FC = () => {
-  const { steps, currentStep, setCurrentStep, setSteps } = useSteps()!;
+  const {
+    steps,
+    maxSteps,
+    minSteps,
+    currentStep,
+    setCurrentStep,
+    setSteps,
+    resetSteps,
+  } = useSteps()!;
   const { tempo } = useTempo()!;
   const [tempoInMs, setTempoInMs] = useState(getTempoInMs(tempo));
   const [isPlaying, setIsPlaying] = useState(false);
@@ -43,14 +44,12 @@ const SequenceControls: React.FC = () => {
   };
 
   const addStep = (delta: number = 1): void => {
-    const resultSteps =
-      steps + delta > settings.steps.max ? steps : steps + delta;
+    const resultSteps = steps + delta > maxSteps ? steps : steps + delta;
     setSteps(resultSteps);
   };
 
   const removeStep = (delta: number = 1): void => {
-    const resultSteps =
-      steps - delta < settings.steps.min ? steps : steps - delta;
+    const resultSteps = steps - delta < minSteps ? steps : steps - delta;
     if (currentStep === steps - 1) {
       setCurrentStep(currentStep - 1);
     }
@@ -61,6 +60,8 @@ const SequenceControls: React.FC = () => {
     onChangeTempo();
     setTempoInMs(getTempoInMs(tempo));
   }, [tempo]);
+
+  console.log(tempoInMs);
 
   useInterval(
     () => {
@@ -80,7 +81,7 @@ const SequenceControls: React.FC = () => {
 
       <Button.Group floated="right">
         <Button icon="minus" onClick={() => removeStep()} />
-        <Button content={steps} />
+        <Button content={steps} onClick={() => resetSteps()} />
         <Button icon="plus" onClick={() => addStep()} />
       </Button.Group>
     </CmpLayout>
